@@ -75,10 +75,10 @@ class Test_BarrierState:
 
         done, pending = await asyncio.wait(
             [
-                self.adder(p),
-                self.fulfiller(p),
-                self.finalizer(p, 1.0),
-                self.consumer(p),
+                asyncio.create_task(self.adder(p)),
+                asyncio.create_task(self.fulfiller(p)),
+                asyncio.create_task(self.finalizer(p, 1.0)),
+                asyncio.create_task(self.consumer(p)),
             ],
             timeout=5.0,
         )

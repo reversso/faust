@@ -782,7 +782,7 @@ class Stream(StreamT[T_co], Service):
 
         async def echoing(value: T) -> T:
             await asyncio.wait(
-                [maybe_forward(value, channel) for channel in _channels],
+                [create_task(maybe_forward(value, channel)) for channel in _channels],
                 return_when=asyncio.ALL_COMPLETED,
             )
             return value
